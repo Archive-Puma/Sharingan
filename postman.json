@@ -1,0 +1,225 @@
+{
+	"info": {
+		"_postman_id": "3c634015-70f1-4ccc-aabc-9239b9b2161a",
+		"name": "Sharingan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21413333"
+	},
+	"item": [
+		{
+			"name": "investigation",
+			"item": [
+				{
+					"name": "CREATE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Dummy\",\n    \"description\": \"Just a dummy investigation\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/api/v1/investigation",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"investigation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIST",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/api/v1/investigation",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"investigation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FETCH",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let baseurl = pm.collectionVariables.get(\"baseurl\");",
+									"pm.sendRequest(baseurl + \"/api/v1/investigation\", (error, response) => {",
+									"        if (!error) {",
+									"            let body = response.json();",
+									"            if(body.length > 0) {",
+									"                pm.collectionVariables.set(\"investigation\", body[0]['uuid']);",
+									"            }",
+									"        }",
+									"    }",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/api/v1/investigation/{{investigation}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"investigation",
+								"{{investigation}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let baseurl = pm.collectionVariables.get(\"baseurl\");",
+									"pm.sendRequest(baseurl + \"/api/v1/investigation\", (error, response) => {",
+									"        if (!error) {",
+									"            let body = response.json();",
+									"            if(body.length > 0) {",
+									"                pm.collectionVariables.set(\"investigation\", body[0]['uuid']);",
+									"            }",
+									"        }",
+									"    }",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/api/v1/investigation/{{investigation}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"investigation",
+								"{{investigation}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "REGISTER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"madara@example.com\",\n    \"password\": \"TheRinn3gan1sov3rp0wer3d\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/api/v1/user",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIST",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/api/v1/user",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseurl",
+			"value": "http://localhost:9876",
+			"type": "string"
+		},
+		{
+			"key": "investigation",
+			"value": ""
+		}
+	]
+}

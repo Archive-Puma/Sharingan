@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  database:
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: sharingan
+      POSTGRES_PASSWORD: sharingan
+      POSTGRES_DB: sharingan
+    ports: [5432:5432]
+    volumes:
+      - db:/var/lib/postgresql/data:rw
+      - ./migrations/:/docker-entrypoint-initdb.d/:ro
+    networks:
+      sharingan:
+        aliases: [database]
+    restart: unless-stopped
+
+networks:
+  sharingan:
+    driver: bridge
+
+volumes:
+  db:
